@@ -1,18 +1,24 @@
 <odoo>
-    <!-- Menu parent -->
-    <menuitem id="menu_admin_root" name="Admin" sequence="10"/>
 
-    <!-- Action pour le modèle queue.service -->
+    <!-- Menu parent -->
+    <menuitem id="menu_digitalqueue_root"
+              name="DigitalQueue"
+              sequence="10"/>
+
+    <!-- Action -->
     <record id="action_queue_service" model="ir.actions.act_window">
         <field name="name">Services</field>
         <field name="res_model">queue.service</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Menu enfant lié à l'action -->
-    <menuitem id="menu_services"
+    <!-- Menu enfant -->
+    <menuitem id="menu_queue_services"
               name="Services"
-              parent="menu_admin_root"
+              parent="menu_digitalqueue_root"
               action="action_queue_service"/>
+
 </odoo>
+
+
 

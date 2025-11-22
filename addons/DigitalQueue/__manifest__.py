@@ -9,6 +9,7 @@ A simple digital queue management system for managing customer queues in various
 'version': '16.0.1',
 'depends': ['base'],
 'data': [
+    'security/ir.model.access.csv',
       'views/menu.xml',
          'views/queue_service_views.xml',
        
