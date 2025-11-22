@@ -8,7 +8,11 @@ A simple digital queue management system for managing customer queues in various
 'category': 'Uncategorized',
 'version': '16.0.1',
 'depends': ['base'],
-'data': [''],
+'data': [
+      'views/menu.xml',
+         'views/queue_service_views.xml',
+       
+         ],
 'application': True,
     'installable': True,
 }
