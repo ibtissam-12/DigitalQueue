@@ -7,13 +7,16 @@ A simple digital queue management system for managing customer queues in various
 'website': "http://www.exemple.com",
 'category': 'Uncategorized',
 'version': '16.0.1',
-'depends': ['base'],
+'depends': ['base' ],
 'data': [
     'security/ir.model.access.csv',
       'views/menu.xml',
          'views/queue_service_views.xml',
-       
+        
+        
          ],
+
+
 'application': True,
     'installable': True,
 }

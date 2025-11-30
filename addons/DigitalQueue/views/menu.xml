@@ -5,20 +5,24 @@
               name="DigitalQueue"
               sequence="10"/>
 
-    <!-- Action -->
+    <!-- Action pour Services -->
     <record id="action_queue_service" model="ir.actions.act_window">
         <field name="name">Services</field>
         <field name="res_model">queue.service</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Menu enfant -->
+    <!-- Menu Services -->
     <menuitem id="menu_queue_services"
               name="Services"
               parent="menu_digitalqueue_root"
               action="action_queue_service"/>
 
+
+
+
 </odoo>
+
 
 
 
