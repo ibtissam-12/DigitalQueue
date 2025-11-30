@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_queue_service,access_queue_service,model_queue_service,base.group_user,1,1,1,1
+access_queue_ticket,queue.ticket,model_queue_ticket,,1,1,1,1

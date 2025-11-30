@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template des services -->
+    <template id="services_template" name="Digital Queue Services">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            
+            <style>
+                body {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    min-height: 100vh;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+                .custom-header {
+                    background: rgba(255,255,255,0.95);
+                    padding: 2rem 0;
+                    text-align: center;
+                }
+                .service-card {
+                    background: white;
+                    border-radius: 15px;
+                    transition: transform 0.3s ease;
+                    border: none;
+                    margin-bottom: 2rem;
+                }
+                .service-card:hover {
+                    transform: translateY(-5px);
+                }
+                .btn-custom {
+                    background: linear-gradient(45deg, #667eea, #764ba2);
+                    border: none;
+                    border-radius: 25px;
+                    padding: 12px 30px;
+                    font-weight: 600;
+                    color: white;
+                }
+            </style>
+
+            <div class="custom-header">
+                <div class="container">
+                    <h1 class="text-dark mb-2">🏷️ File d'Attente Digitale</h1>
+                    <p class="text-muted lead">Choisissez un service pour obtenir votre ticket</p>
+                </div>
+            </div>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <t t-foreach="services" t-as="service">
+                        <div class="col-md-4">
+                            <div class="card service-card shadow">
+                                <div class="card-body text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fa fa-ticket-alt fa-3x text-primary"></i>
+                                    </div>
+                                    <h4 t-esc="service.name"/>
+                                    <div class="mb-3">
+                                        <t t-if="service.description">
+                                            <p class="text-muted" t-esc="service.description"/>
+                                        </t>
+                                        <t t-else="">
+                                            <p class="text-muted">Service disponible</p>
+                                        </t>
+                                    </div>
+                                    <a t-att-href="'/digitalqueue/take_ticket?service_id=' + str(service.id)" class="btn btn-custom">
+                                        Prendre un ticket
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+                <t t-if="not services">
+                    <div class="alert alert-info text-center mt-5">
+                        <h4>Aucun service disponible</h4>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template de ticket avec position -->
+    <template id="ticket_template" name="Ticket Confirmation">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            
+            <style>
+                body {
+                    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+                    min-height: 100vh;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+                .ticket-card {
+                    background: white;
+                    border-radius: 20px;
+                    margin: 2rem 0;
+                }
+                .ticket-number {
+                    background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+                    border-radius: 15px;
+                    padding: 2rem;
+                    text-align: center;
+                }
+                .queue-position {
+                    background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+                    color: white;
+                    border-radius: 10px;
+                    padding: 1.5rem;
+                    text-align: center;
+                }
+            </style>
+
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="ticket-card shadow">
+                            <div class="card-header bg-success text-white text-center py-4">
+                                <h1 class="mb-0">Ticket Créé !</h1>
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <!-- Numéro du ticket -->
+                                <div class="ticket-number mb-4">
+                                    <h2 class="text-muted mb-3">Votre numéro</h2>
+                                    <div style="font-size: 4rem; font-weight: bold; color: #2d3436;" t-esc="ticket.name"/>
+                                    <p class="text-muted mt-2" t-esc="ticket.service_id.name"/>
+                                </div>
+                                
+                                <!-- Position dans la file -->
+                                <div class="queue-position mb-4">
+                                    <h3 class="mb-3">Position dans la file</h3>
+                                    <div style="font-size: 3rem; font-weight: bold;" t-esc="position_in_queue"/>
+                                    <p class="mb-0">
+                                        <t t-if="people_before == 0">
+                                            Vous êtes le premier !
+                                        </t>
+                                        <t t-else="">
+                                            <span t-esc="people_before"/>
+                                            <t t-if="people_before == 1"> personne avant vous</t>
+                                            <t t-else=""> personnes avant vous</t>
+                                        </t>
+                                    </p>
+                                </div>
+                                
+                                <!-- Informations du ticket -->
+                                <div class="alert alert-info mb-4">
+                                    <h5>Détails du ticket</h5>
+                                    <p class="mb-2"><strong>Numéro :</strong> <span t-esc="ticket.name"/></p>
+                                    <p class="mb-2"><strong>Service :</strong> <span t-esc="ticket.service_id.name"/></p>
+                                    <p class="mb-2"><strong>Heure :</strong> <span t-esc="ticket.create_date"/></p>
+                                    <p class="mb-0"><strong>Statut :</strong> <span class="badge bg-warning">En attente</span></p>
+                                </div>
+                                
+                                <!-- Instructions -->
+                                <div class="bg-light rounded p-4">
+                                    <h5 class="text-dark mb-3 text-center">Comment ça marche ?</h5>
+                                    <p class="mb-2">1. Gardez ce numéro</p>
+                                    <p class="mb-2">2. Attendez que votre numéro soit appelé</p>
+                                    <p class="mb-0">3. Présentez-vous au guichet</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer text-center py-3">
+                                <a href="/digitalqueue/services" class="btn btn-primary">
+                                    Prendre un autre ticket
+                                </a>
+                                <button onclick="window.print()" class="btn btn-outline-secondary ms-2">
+                                    Imprimer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
