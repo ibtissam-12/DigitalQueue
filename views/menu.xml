@@ -1,0 +1,30 @@
+<odoo>
+    <!-- Menu principal -->
+    <menuitem id="menu_gestion_files_root"
+              name="DigitalQueue"
+              sequence="1"/>
+
+    <!-- Menu Agents -->
+    <menuitem id="menu_agents"
+              name="Agents"
+              parent="menu_gestion_files_root"
+              action="action_agent"/>
+
+    <!-- Menu Files d'attente -->
+    <menuitem id="menu_files_attente"
+              name="Files d'attente"
+              parent="menu_gestion_files_root"
+              action="action_file_attente"/>
+
+    <!-- Menu Tickets -->
+    <menuitem id="menu_tickets"
+              name="Tickets"
+              parent="menu_gestion_files_root"
+              action="action_ticket"/>
+
+    <!-- Menu Services -->
+    <menuitem id="menu_services"
+              name="Services"
+              parent="menu_gestion_files_root"
+              action="action_queue_service"/>
+</odoo>

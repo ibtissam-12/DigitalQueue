@@ -1,0 +1,43 @@
+<odoo>
+    <record id="view_agent_form" model="ir.ui.view">
+        <field name="name">agent.form</field>
+        <field name="model">digitalqueue.agent</field>
+        <field name="arch" type="xml">
+            <form string="Agent">
+                <sheet>
+                    <group>
+                        <field name="nom"/>
+                        <field name="service_id"/>
+                        <field name="est_disponible"/>
+                        <field name="file_id"/>
+                        <field name="ticket_courant_id" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="connecter" type="object" class="btn-primary" string="Se connecter"/>
+                        <button name="consulterFile" type="object" string="Voir la file"/>
+                        <button name="traiterClient" type="object" class="btn-success" string="Appeler prochain client"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agent_tree" model="ir.ui.view">
+        <field name="name">agent.tree</field>
+        <field name="model">digitalqueue.agent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom"/>
+                <field name="service_id"/>
+                <field name="est_disponible"/>
+                <field name="file_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_agent" model="ir.actions.act_window">
+        <field name="name">Agents</field>
+        <field name="res_model">digitalqueue.agent</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
