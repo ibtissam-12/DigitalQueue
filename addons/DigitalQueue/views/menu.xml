@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Menu principal -->
     <menuitem id="menu_gestion_files_root"
               name="DigitalQueue"
               sequence="1"/>
+
+    <!-- Menu Dashboard - doit être défini APRÈS l'action dans dashboard_views.xml -->
+    <!-- NE PAS le mettre ici, il sera dans dashboard_views.xml -->
 
     <!-- Menu Agents -->
     <menuitem id="menu_agents"

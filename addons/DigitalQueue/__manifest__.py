@@ -24,13 +24,16 @@ It allows agents to process clients through a digital queue system.
 
         # Vues Tickets
         'views/ticket_view.xml',
+          'views/dashboard_views.xml',
 
         # Menus (doivent être chargés après les actions)
         'views/menu.xml',
 
         # Website templates
         'views/booking_template.xml',
+      
     ],
+  
 
     'application': True,
     'installable': True,

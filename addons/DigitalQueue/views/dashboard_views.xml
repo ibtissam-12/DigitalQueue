@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue Kanban pour le dashboard (version simplifiée) -->
+    <record id="view_ticket_dashboard_kanban" model="ir.ui.view">
+        <field name="name">digitalqueue.ticket.dashboard.kanban</field>
+        <field name="model">digitalqueue.ticket</field>
+        <field name="arch" type="xml">
+            <kanban class="o_dashboard_kanban">
+                <field name="id"/>
+                <field name="numero"/>
+                <field name="statut"/>
+                <field name="service_id"/>
+                <field name="date_creation"/>
+                
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record">
+                            <div class="o_kanban_record_top mb-2">
+                                <strong>
+                                    <field name="numero"/>
+                                </strong>
+                            </div>
+                            <div class="mb-1">
+                                <small class="text-muted">Service: </small>
+                                <field name="service_id" widget="many2one_avatar"/>
+                            </div>
+                            <div class="mb-2">
+                                <span t-att-class="'badge ' + (record.statut.raw_value == 'en_attente' ? 'bg-warning' : 
+                                                            record.statut.raw_value == 'appele' ? 'bg-info' : 
+                                                            record.statut.raw_value == 'en_cours' ? 'bg-primary' : 
+                                                            record.statut.raw_value == 'termine' ? 'bg-success' : 'bg-danger')">
+                                    <field name="statut"/>
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Vue Tree simplifiée -->
+    <record id="view_ticket_dashboard_tree" model="ir.ui.view">
+        <field name="name">digitalqueue.ticket.dashboard.tree</field>
+        <field name="model">digitalqueue.ticket</field>
+        <field name="arch" type="xml">
+            <tree string="Dashboard">
+                <field name="numero" string="Numéro"/>
+                <field name="service_id" string="Service"/>
+                <field name="statut" string="Statut"/>
+                <field name="date_creation" string="Créé à"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue Search CORRIGÉE (beaucoup plus simple) -->
+    <record id="view_ticket_dashboard_search" model="ir.ui.view">
+        <field name="name">digitalqueue.ticket.dashboard.search</field>
+        <field name="model">digitalqueue.ticket</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Filtres rapides simples -->
+                <filter name="today" string="Aujourd'hui" domain="[('date_creation','&gt;=',context_today())]"/>
+                <filter name="waiting" string="En attente" domain="[('statut','=','en_attente')]"/>
+                <filter name="called" string="Appelés" domain="[('statut','=','appele')]"/>
+                <filter name="in_progress" string="En cours" domain="[('statut','=','en_cours')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Dashboard principale -->
+    <record id="action_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">digitalqueue.ticket</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_ticket_dashboard_kanban"/>
+        <field name="search_view_id" ref="view_ticket_dashboard_search"/>
+        <field name="context">{
+            'search_default_today': 1
+        }</field>
+    </record>
+
+    <!-- Menu Dashboard -->
+    <menuitem id="menu_dashboard"
+              name="Dashboard"
+              parent="menu_gestion_files_root"
+              action="action_dashboard"
+              sequence="1"/>
+</odoo>

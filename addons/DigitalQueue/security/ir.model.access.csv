@@ -4,5 +4,4 @@ access_agent,access_agent,model_digitalqueue_agent,base.group_user,1,1,1,0
 access_ticket,access_ticket,model_digitalqueue_ticket,base.group_user,1,1,1,0
 access_file_attente,access_file_attente,model_digitalqueue_file_attente,base.group_user,1,1,1,0
 access_ticket_admin,access_ticket_admin,model_digitalqueue_ticket,base.group_system,1,1,1,1
-
 access_file_attente_admin,access_file_attente_admin,model_digitalqueue_file_attente,base.group_system,1,1,1,1
