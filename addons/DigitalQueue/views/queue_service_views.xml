@@ -1,8 +1,43 @@
 <odoo>
+    <!-- FILE ATTENTE VIEWS -->
+    <record id="view_file_attente_tree" model="ir.ui.view">
+        <field name="name">file.attente.tree</field>
+        <field name="model">digitalqueue.file_attente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" string="Nom"/>
+                <field name="capacite_max" string="Capacité Max"/>
+                <field name="tickets_ids" widget="many2many_count" string="Tickets"/>
+            </tree>
+        </field>
+    </record>
 
+    <record id="action_file_attente" model="ir.actions.act_window">
+        <field name="name">Files d'attente</field>
+        <field name="res_model">digitalqueue.file_attente</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_file_attente_form" model="ir.ui.view">
+        <field name="name">file.attente.form</field>
+        <field name="model">digitalqueue.file_attente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="nom"/>
+                        <field name="capacite_max"/>
+                        <field name="tickets_ids" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- QUEUE SERVICE VIEWS -->
     <record id="view_queue_service_tree" model="ir.ui.view">
         <field name="name">queue.service.tree</field>
-        <field name="model">queue.service</field>
+        <field name="model">digitalqueue.queue_service</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -15,7 +50,7 @@
 
     <record id="view_queue_service_form" model="ir.ui.view">
         <field name="name">queue.service.form</field>
-        <field name="model">queue.service</field>
+        <field name="model">digitalqueue.queue_service</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -25,10 +60,23 @@
                         <field name="description"/>
                         <field name="active"/>
                     </group>
+                    <separator string="Agents assignés"/>
+                    <field name="agents_ids" readonly="1">
+                        <tree>
+                            <field name="nom"/>
+                            <field name="est_disponible"/>
+                            <field name="file_id"/>
+                        </tree>
+                    </field>
                 </sheet>
             </form>
         </field>
     </record>
 
-</odoo>
+    <record id="action_queue_service" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">digitalqueue.queue_service</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
+</odoo>

@@ -1,0 +1,48 @@
+<odoo>
+    <!-- VUE TREE DES TICKETS -->
+    <record id="view_ticket_tree" model="ir.ui.view">
+        <field name="name">ticket.tree</field>
+        <field name="model">digitalqueue.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="numero"/>
+                <field name="file_id"/>
+                <field name="priorite"/>
+                <field name="statut"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- VUE FORM DES TICKETS -->
+    <record id="view_ticket_form" model="ir.ui.view">
+        <field name="name">ticket.form</field>
+        <field name="model">digitalqueue.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="numero"/>
+                        <field name="file_id"/>
+                        <field name="priorite"/>
+                        <field name="statut"/>
+                    </group>
+                    <footer>
+                        <!-- Bouton Passer au client suivant (visible pour tous les utilisateurs internes) -->
+                        <button name="next_client"
+                                string="Passer au client suivant"
+                                type="object"
+                                class="btn-primary"
+                                groups="base.group_user"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION DES TICKETS -->
+    <record id="action_ticket" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="res_model">digitalqueue.ticket</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

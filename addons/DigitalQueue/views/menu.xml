@@ -1,28 +1,30 @@
 <odoo>
-
-    <!-- Menu parent -->
-    <menuitem id="menu_digitalqueue_root"
+    <!-- Menu principal -->
+    <menuitem id="menu_gestion_files_root"
               name="DigitalQueue"
-              sequence="10"/>
+              sequence="1"/>
 
-    <!-- Action pour Services -->
-    <record id="action_queue_service" model="ir.actions.act_window">
-        <field name="name">Services</field>
-        <field name="res_model">queue.service</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+    <!-- Menu Agents -->
+    <menuitem id="menu_agents"
+              name="Agents"
+              parent="menu_gestion_files_root"
+              action="action_agent"/>
+
+    <!-- Menu Files d'attente -->
+    <menuitem id="menu_files_attente"
+              name="Files d'attente"
+              parent="menu_gestion_files_root"
+              action="action_file_attente"/>
+
+    <!-- Menu Tickets -->
+    <menuitem id="menu_tickets"
+              name="Tickets"
+              parent="menu_gestion_files_root"
+              action="action_ticket"/>
 
     <!-- Menu Services -->
-    <menuitem id="menu_queue_services"
+    <menuitem id="menu_services"
               name="Services"
-              parent="menu_digitalqueue_root"
+              parent="menu_gestion_files_root"
               action="action_queue_service"/>
-
-
-
-
 </odoo>
-
-
-
-

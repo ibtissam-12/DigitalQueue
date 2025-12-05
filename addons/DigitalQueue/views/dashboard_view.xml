@@ -1,0 +1,38 @@
+<odoo>
+    <!-- Dashboard form showing aggregated ticket counts -->
+    <record id="view_dashboard_form" model="ir.ui.view">
+        <field name="name">digitalqueue.dashboard.form</field>
+        <field name="model">digitalqueue.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Tableau de bord" class="o_form_sheet">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="total_tickets" readonly="1"/>
+                            <field name="en_attente" readonly="1"/>
+                            <field name="appele" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="en_cours" readonly="1"/>
+                            <field name="termine" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dashboard" model="ir.actions.act_window">
+        <field name="name">Tableau de bord</field>
+        <field name="res_model">digitalqueue.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_dashboard_form"/>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_dashboard"
+              name="Dashboard"
+              parent="menu_gestion_files_root"
+              action="action_ticket_stat"
+              sequence="0"/>
+</odoo>
